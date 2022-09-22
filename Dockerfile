@@ -3,7 +3,7 @@ FROM amazon/aws-cli AS AWS
 WORKDIR /setup
 
 #RUN aws s3api list-objects-v2 --bucket "agr-db-backups" --query 'reverse(sort_by(Contents[?contains(Key, `curation/production/production-curation-`)], &LastModified))[:1].Key' --output=text 
-RUN aws s3 cp s3://agr-db-backups/`aws s3api list-objects-v2 --bucket "agr-db-backups" --query 'reverse(sort_by(Contents[?contains(Key, \`curation/production/production-curation-\`)], &LastModified))[:1].Key' --output=text` data.dump
+RUN aws s3 cp s3://agr-db-backups/`aws s3api list-objects-v2 --bucket "agr-db-backups" --query 'reverse(sort_by(Contents[?contains(Key, \`curation/production/\`)], &LastModified))[:1].Key' --output=text` data.dump
 
 
 FROM postgres
