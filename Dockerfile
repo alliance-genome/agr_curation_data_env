@@ -9,6 +9,8 @@ FROM postgres
 ENV POSTGRES_PASSWORD postgres
 ENV POSTGRES_DB curation
 
+RUN apt-get update && apt-get install pigz
+
 COPY --from=AWS /setup/data.dump /docker-entrypoint-initdb.d/data.dump
 RUN echo 'fsync = off' >> /usr/share/postgresql/postgresql.conf.sample
 RUN echo 'synchronous_commit = off' >> /usr/share/postgresql/postgresql.conf.sample
@@ -18,4 +20,4 @@ RUN echo 'log_checkpoints = off' >> /usr/share/postgresql/postgresql.conf.sample
 RUN echo 'checkpoint_timeout = 60min' >> /usr/share/postgresql/postgresql.conf.sample
 RUN echo 'checkpoint_completion_target = 0.85' >> /usr/share/postgresql/postgresql.conf.sample
 
-RUN pg_restore -f /docker-entrypoint-initdb.d/data.sql /docker-entrypoint-initdb.d/data.dump && rm /docker-entrypoint-initdb.d/data.dump && gzip /docker-entrypoint-initdb.d/data.sql
+RUN pg_restore -f /docker-entrypoint-initdb.d/data.sql /docker-entrypoint-initdb.d/data.dump && rm /docker-entrypoint-initdb.d/data.dump && pigz /docker-entrypoint-initdb.d/data.sql
