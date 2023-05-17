@@ -1,6 +1,9 @@
 FROM postgres
 ENV POSTGRES_PASSWORD postgres
 ENV POSTGRES_DB curation
+ENV PGDATA /pgdata
+
+RUN mkdir -p "$PGDATA" && chown -R postgres:postgres "$PGDATA" && chmod 777 "$PGDATA"
 
 RUN echo 'fsync = off' >> /usr/share/postgresql/postgresql.conf.sample
 RUN echo 'synchronous_commit = off' >> /usr/share/postgresql/postgresql.conf.sample
