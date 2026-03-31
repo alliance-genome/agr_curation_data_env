@@ -13,6 +13,7 @@ RUN echo 'log_checkpoints = off' >> /usr/share/postgresql/postgresql.conf.sample
 RUN echo 'checkpoint_timeout = 60min' >> /usr/share/postgresql/postgresql.conf.sample
 RUN echo 'checkpoint_completion_target = 0.85' >> /usr/share/postgresql/postgresql.conf.sample
 
+RUN echo 'max_connections = 300' >> /usr/share/postgresql/postgresql.conf.sample
 RUN echo 'shared_buffers = 16GB' >> /usr/share/postgresql/postgresql.conf.sample
 RUN echo 'effective_cache_size = 48GB' >> /usr/share/postgresql/postgresql.conf.sample
 RUN echo 'work_mem = 64MB' >> /usr/share/postgresql/postgresql.conf.sample
